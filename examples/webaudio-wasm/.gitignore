@@ -1,3 +1,2 @@
-package-lock.json
-node_modules/
+my-processor.js
 webaudio_wasm*

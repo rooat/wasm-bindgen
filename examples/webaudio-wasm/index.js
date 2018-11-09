@@ -1,18 +1,34 @@
 const context = new AudioContext();
 
-context.audioWorklet.addModule('processor.js').then(() => {
-  import('./webaudio_wasm').then(rust_module => {
-    let wasm = rust_module.Oscillator.new();
-    console.log("called Oscillator.new()")
-    console.log(wasm);
+async function run(wasmModule) {
 
-    let oscillator = new AudioWorkletNode(context, 'oscillator', {
-      processorOptions: {
-        sampleRate: context.sampleRate,
-        wasm: wasm,
-      }
-    });
+  await context.audioWorklet.addModule('my-processor.js');
 
-    oscillator.connect(context.destination);
+  // let wasm = rust_module.Oscillator.new();
+  // console.log("called Oscillator.new()")
+  // console.log(wasm);
+
+  let oscillator = new AudioWorkletNode(context, 'oscillator', {
+    processorOptions: {
+      sampleRate: context.sampleRate,
+      wasm: wasmModule,
+    }
   });
+
+  oscillator.connect(context.destination);
+  context.suspend();
+}
+
+let playing = false;
+const play = document.getElementById('play');
+play.addEventListener('click', function() {
+  if (playing) {
+    context.suspend();
+  } else {
+    context.resume();
+  }
+  playing = !playing;
 });
+
+WebAssembly.compileStreaming(fetch('./webaudio_wasm_bg.wasm'))
+    .then(run);

@@ -614,9 +614,10 @@ pub fn throw(s: &str) -> ! {
 #[cold]
 #[inline(never)]
 pub fn throw_str(s: &str) -> ! {
-    unsafe {
-        __wbindgen_throw(s.as_ptr(), s.len());
-    }
+    drop(s);
+    // TODO: looks like audio worklets don't have `TextDecoder` defined so don't
+    // actually call into JS for now, just abort without a message
+    std::process::abort();
 }
 
 /// Rethrow a JS exception

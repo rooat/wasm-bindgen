@@ -10,6 +10,7 @@ pub struct Oscillator {
 
 #[wasm_bindgen]
 impl Oscillator {
+    #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
             phase: 0.0,
