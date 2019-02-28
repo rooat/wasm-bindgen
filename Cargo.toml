@@ -88,3 +88,5 @@ wasm-bindgen = { path = '.' }
 wasm-bindgen-futures = { path = 'crates/futures' }
 js-sys = { path = 'crates/js-sys' }
 web-sys = { path = 'crates/web-sys' }
+rayon = { git = 'https://github.com/cuviper/rayon', branch = 'custom-spawn' }
+rayon-core = { git = 'https://github.com/cuviper/rayon', branch = 'custom-spawn' }

@@ -11,6 +11,8 @@ crate-type = ["cdylib"]
 console_error_panic_hook = "0.1"
 futures = "0.1"
 js-sys = "0.3.17"
+rayon = "1.0.3"
+rayon-core = "1.0.3"
 raytracer = { git = 'https://github.com/alexcrichton/raytracer', branch = 'update-deps' }
 wasm-bindgen = { version = "0.2.40", features = ['serde-serialize'] }
 wasm-bindgen-futures = "0.3.17"
